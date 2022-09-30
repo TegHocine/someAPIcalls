@@ -14,8 +14,7 @@ export const facebookApi = createApi({
       fb_exchange_token=${accessToken}`
     }),
     getAccessPage: builder.query({
-      query: (accessToken, userID) =>
-        `${userID}/accounts?access_token=${accessToken}`
+      query: (query) => `${query.id}/accounts?access_token=${query.token}`
     })
   })
 })
