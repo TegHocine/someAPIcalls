@@ -4,21 +4,21 @@ import { Tab } from '@headlessui/react'
 
 import ListPage from '../components/ListPage'
 import Navbar from '../components/Navbar'
+import ListAdAccount from '../components/ListAdAccount'
 
 const sections = ['Liste des pages', 'Poster un message', 'ad account']
 
 const Home = () => {
-  const auth = useSelector((state) => state.auth)
   const {
     token,
-    user: { id, name, picture }
-  } = auth
+    user: { id, name, picture, adaccounts }
+  } = useSelector((state) => state.auth)
 
   return (
     <div>
-      <Navbar name={name} picture={picture.data.url} />
+      <Navbar name={name} picture={picture?.data?.url} />
       <div className=' flex justify-center items-center w-full'>
-        <div className='w-full max-w-3xl px-2 py-16 sm:px-0'>
+        <div className='w-full max-w-3xl px-2 py-10 sm:px-0'>
           <Tab.Group>
             <Tab.List className='flex space-x-1 rounded-xl bg-blue-900/20 p-2 text-white'>
               {sections.map((section, i) => (
@@ -36,15 +36,15 @@ const Home = () => {
                 </Tab>
               ))}
             </Tab.List>
-            <Tab.Panels>
-              <Tab.Panel className='rounded-xl bg-white p-3 ring-white ring-opacity-60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2 drop-shadow-md'>
+            <Tab.Panels className={'mt-5 bg-white drop-shadow-md rounded-xl'}>
+              <Tab.Panel className='rounded-xl p-3 ring-white ring-opacity-60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2 '>
                 <ListPage token={token} id={id} />
               </Tab.Panel>
-              <Tab.Panel className='rounded-xl bg-white p-3 ring-white ring-opacity-60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2 drop-shadow-md'>
-                <ListPage token={token} id={id} />
+              <Tab.Panel className='rounded-xl bg-white p-3 ring-white ring-opacity-60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2'>
+                hello
               </Tab.Panel>
-              <Tab.Panel className='rounded-xl bg-white p-3 ring-white ring-opacity-60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2 drop-shadow-md'>
-                <ListPage token={token} id={id} />
+              <Tab.Panel className='rounded-xl bg-white p-3 ring-white ring-opacity-60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2 '>
+                <ListAdAccount adaccounts={adaccounts?.data} />
               </Tab.Panel>
             </Tab.Panels>
           </Tab.Group>

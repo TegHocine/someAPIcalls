@@ -1,29 +1,47 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 
 import { useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { setUserInfo, setToken } from '../redux/features/authSlice'
+import { useGetUserProfileQuery } from '../redux/services/facebookApi'
+import Spinner from '../components/spinner'
 
 import fbLogo from '../assets/fb.png'
-
 import FacebookLogin from '@greatsumini/react-facebook-login'
 
 const appId = import.meta.env.VITE_APP_ID
 
 const FacebookAuth = () => {
+  const [apiDelayed, setApiDelayed] = useState({
+    accessToken: '',
+    skip: true
+  })
+
   const navigate = useNavigate()
   const dispatch = useDispatch()
+
+  const { data, isLoading, isSuccess } = useGetUserProfileQuery(
+    apiDelayed.accessToken,
+    {
+      skip: apiDelayed.skip
+    }
+  )
+
+  useEffect(() => {
+    if (isSuccess) {
+      dispatch(setUserInfo(data))
+      navigate('/')
+    }
+  }, [isSuccess])
+
   const loginSuccess = (res) => {
     const { accessToken } = res
     dispatch(setToken(accessToken))
+    setApiDelayed({ accessToken: accessToken, skip: false })
   }
-  const ProfileUser = (res) => {
-    console.log('Get Profile Success!', res)
-    dispatch(setUserInfo(res))
-    navigate('/')
-  }
+
   const loginError = () => {
-    alert('Login Failed!')
+    navigate('/auth')
   }
 
   return (
@@ -33,7 +51,6 @@ const FacebookAuth = () => {
         appId={appId}
         onSuccess={loginSuccess}
         onFail={loginError}
-        onProfileSuccess={ProfileUser}
         render={({ onClick }) => (
           <button
             onClick={onClick}

@@ -3,15 +3,12 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 export const facebookApi = createApi({
   reducerPath: 'facebookApi',
   baseQuery: fetchBaseQuery({
-    baseUrl: 'https://graph.facebook.com/'
+    baseUrl: 'https://graph.facebook.com/v15.0/'
   }),
   endpoints: (builder) => ({
-    getlongLivedToken: builder.query({
+    getUserProfile: builder.query({
       query: (accessToken) =>
-        `oauth/access_token?grant_type=fb_exchange_token&
-      client_id=${import.meta.env.VITE_APP_ID}&
-      client_secret=${import.meta.env.VITE_APP_SECRET}&
-      fb_exchange_token=${accessToken}`
+        `me?fields=id%2Cname%2Cadaccounts%7Bname%2Cadimages%7Bcreated_time%7D%7D%2Cpicture&access_token=${accessToken}`
     }),
     getAccessPage: builder.query({
       query: (query) => `${query.id}/accounts?access_token=${query.token}`
@@ -19,4 +16,4 @@ export const facebookApi = createApi({
   })
 })
 
-export const { useGetlongLivedTokenQuery, useGetAccessPageQuery } = facebookApi
+export const { useGetUserProfileQuery, useGetAccessPageQuery } = facebookApi
