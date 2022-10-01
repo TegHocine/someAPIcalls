@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 
 const ListAdAccount = ({ adaccounts }) => {
   const [filter, setFilter] = useState('')
-  const [filterdAccount, setFilteredAccount] = useState(adaccounts)
+  const [filterdAccount, setFilteredAccount] = useState(adaccounts || [])
   const onFilterChange = (e) => {
     setFilter(e.target.value)
     setFilteredAccount(
@@ -14,7 +14,7 @@ const ListAdAccount = ({ adaccounts }) => {
   return (
     <>
       <h2 className='text-lg font-semibold mb-2 flex justify-between items-center'>
-        List :
+        List adaccounts :
         <input
           type='text'
           placeholder='Filter by name'
@@ -24,9 +24,15 @@ const ListAdAccount = ({ adaccounts }) => {
         />
       </h2>
       <ul className='flex flex-col items-center gap-3'>
-        {filterdAccount?.map((item) => (
-          <ListAdAccountItem key={item.id} {...item} />
-        ))}
+        {filterdAccount?.length < 1 ? (
+          <li className='py-1 w-full px-2'>
+            <h2 className=' text-lg'>No adaccounts found</h2>
+          </li>
+        ) : (
+          filterdAccount?.map((item) => (
+            <ListAdAccountItem key={item.id} {...item} />
+          ))
+        )}
       </ul>
     </>
   )

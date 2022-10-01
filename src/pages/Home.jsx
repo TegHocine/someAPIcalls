@@ -14,6 +14,18 @@ const Home = () => {
     user: { id, name, picture, adaccounts }
   } = useSelector((state) => state.auth)
 
+  const handleShare = (e) => {
+    e.preventDefault()
+    const ahref = 'https://github.com/'
+    const link = `https://www.facebook.com/dialog/share?app_id=${
+      import.meta.env.VITE_APP_ID
+    }&href=${ahref}`
+    open(link)
+  }
+
+  const open = (socialLink) => {
+    window.open(socialLink, '_blank')
+  }
   return (
     <div>
       <Navbar name={name} picture={picture?.data?.url} />
@@ -41,7 +53,11 @@ const Home = () => {
                 <ListPage token={token} id={id} />
               </Tab.Panel>
               <Tab.Panel className='rounded-xl bg-white p-3 ring-white ring-opacity-60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2'>
-                hello
+                <button
+                  onClick={handleShare}
+                  className='py-0.5 px-3 border-2 font-medium border-gray-700 rounded-lg'>
+                  share
+                </button>
               </Tab.Panel>
               <Tab.Panel className='rounded-xl bg-white p-3 ring-white ring-opacity-60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2 '>
                 <ListAdAccount adaccounts={adaccounts?.data} />

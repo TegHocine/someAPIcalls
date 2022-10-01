@@ -4,12 +4,9 @@ import { useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { setUserInfo, setToken } from '../redux/features/authSlice'
 import { useGetUserProfileQuery } from '../redux/services/facebookApi'
-import Spinner from '../components/spinner'
 
 import fbLogo from '../assets/fb.png'
 import FacebookLogin from '@greatsumini/react-facebook-login'
-
-const appId = import.meta.env.VITE_APP_ID
 
 const FacebookAuth = () => {
   const [apiDelayed, setApiDelayed] = useState({
@@ -48,7 +45,7 @@ const FacebookAuth = () => {
     <div className='flex flex-col gap-4 h-screen  items-center justify-center font-bold text-gray-700 text-2xl'>
       <h1>Log in With</h1>
       <FacebookLogin
-        appId={appId}
+        appId={import.meta.env.VITE_APP_ID}
         onSuccess={loginSuccess}
         onFail={loginError}
         render={({ onClick }) => (

@@ -15,16 +15,22 @@ const ListPage = ({ token, id }) => {
   const compareStrings = (item1, item2) => {
     return item1.name < item2.name ? -1 : item1.name > item2.name ? 1 : 0
   }
-  const sortedPageList = res?.data?.slice().sort(compareStrings)
+  const sortedPageList = res?.data?.slice().sort(compareStrings) || []
 
   if (isLoading) return <Spinner />
   return (
     <>
-      <h2 className='text-lg font-semibold'>List :</h2>
+      <h2 className='text-lg font-semibold'>List pages:</h2>
       <ul className='flex flex-col items-center gap-3'>
-        {sortedPageList?.map((item) => (
-          <ListPageItem key={item.id} {...item} />
-        ))}
+        {sortedPageList.length < 1 ? (
+          <li className='py-1 w-full px-2'>
+            <h2 className=' text-lg'>No pages found</h2>
+          </li>
+        ) : (
+          sortedPageList?.map((item) => (
+            <ListPageItem key={item.id} {...item} />
+          ))
+        )}
       </ul>
     </>
   )
