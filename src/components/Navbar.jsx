@@ -14,7 +14,7 @@ const Navbar = ({ picture, name }) => {
   }
 
   return (
-    <div className='flex justify-between items-center px-6 py-4 drop-shadow-sm bg-white'>
+    <div className='flex justify-between items-center px-6 py-4 drop-shadow-sm bg-white w-full'>
       <div className='flex items-center gap-2'>
         <img src={picture} alt={name} className='rounded-full ' />
         <span className='font-semibold'>{name}</span>

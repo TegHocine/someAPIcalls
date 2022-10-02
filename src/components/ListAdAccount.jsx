@@ -13,7 +13,7 @@ const ListAdAccount = ({ adaccounts }) => {
   }
   return (
     <>
-      <h2 className='text-lg font-semibold mb-2 flex justify-between items-center'>
+      <h2 className='text-lg font-semibold mb-2 flex justify-between items-center flex-wrap'>
         List adaccounts :
         <input
           type='text'

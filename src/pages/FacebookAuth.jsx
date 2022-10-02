@@ -7,6 +7,7 @@ import { useGetUserProfileQuery } from '../redux/services/facebookApi'
 
 import fbLogo from '../assets/fb.png'
 import FacebookLogin from '@greatsumini/react-facebook-login'
+import Spinner from '../components/spinner'
 
 const FacebookAuth = () => {
   const [apiDelayed, setApiDelayed] = useState({
@@ -32,6 +33,7 @@ const FacebookAuth = () => {
   }, [isSuccess])
 
   const loginSuccess = (res) => {
+    console.log(res)
     const { accessToken } = res
     dispatch(setToken(accessToken))
     setApiDelayed({ accessToken: accessToken, skip: false })
@@ -41,6 +43,13 @@ const FacebookAuth = () => {
     navigate('/auth')
   }
 
+  if (isLoading) {
+    return (
+      <div className='h-screen w-full flex items-center justify-center'>
+        <Spinner />
+      </div>
+    )
+  }
   return (
     <div className='flex flex-col gap-4 h-screen  items-center justify-center font-bold text-gray-700 text-2xl'>
       <h1>Log in With</h1>
