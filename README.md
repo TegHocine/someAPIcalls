@@ -14,3 +14,4 @@ Pour exécuter l'application on local.
 Utilisez le lien localhost ou l'application ne fonctionnera pas.
 
 
+![afterlog](https://user-images.githubusercontent.com/61586802/193457377-d51b52a2-ad48-4b15-9878-5d218dbc7b2d.PNG)
